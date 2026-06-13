@@ -9,18 +9,18 @@
 // Tüm tema butonlarını seçiyoruz
 const temaButonlari = document.querySelectorAll(".tema-btn");
 
-// "mavi" varsayılan temadır (:root'ta tanımlı), diğerleri body'ye
+// "acik" varsayılan temadır (:root'ta tanımlı), diğerleri body'ye
 // eklenen sınıflarla geliyor. Tema değiştirirken önce bu sınıfları
 // body'den temizlememiz gerekiyor.
-const temaSiniflari = ["tema-yesil", "tema-turuncu", "tema-acik"];
+const temaSiniflari = ["tema-yesil", "tema-turuncu", "tema-mavi"];
 
 // Verilen temayı sayfaya uygular ve aktif butonu işaretler
 function temaUygula(tema) {
   // Önce olası eski tema sınıflarını kaldır
   document.body.classList.remove(...temaSiniflari);
 
-  // "mavi" dışındaki temalar için body'ye ilgili sınıfı ekle
-  if (tema !== "mavi") {
+  // "acik" dışındaki temalar için body'ye ilgili sınıfı ekle
+  if (tema !== "acik") {
     document.body.classList.add("tema-" + tema);
   }
 
@@ -41,6 +41,6 @@ temaButonlari.forEach((buton) => {
 });
 
 // Sayfa ilk açıldığında: önceden seçilmiş bir tema varsa onu uygula,
-// yoksa varsayılan tema olan "mavi" ile başla
-const kayitliTema = localStorage.getItem("secilenTema") || "mavi";
+// yoksa varsayılan tema olan "acik" ile başla
+const kayitliTema = localStorage.getItem("secilenTema") || "acik";
 temaUygula(kayitliTema);

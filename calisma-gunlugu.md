@@ -87,4 +87,20 @@ Her oturumda neyin neden yapıldığını buradan tekrar gözden geçirebilirsin
   - Butonlara `click` olayı eklendi.
   - Sayfa açılışında `localStorage`'dan kayıtlı tema okunup uygulanıyor (yoksa "mavi" varsayılan).
 
+### Küçük Düzenleme — Kart/Sepet Gölgesi (tamamlandı)
+- `.urun-karti` ve `.sepetim` kutularına `box-shadow: 0 8px 20px rgba(0,0,0,0.2/0.3)` eklendi — kartlar arka plandan hafifçe kabartılmış görünüyor.
+
+### Varsayılan Tema Değişikliği — Açık (tamamlandı)
+- Kullanıcı, sayfanın varsayılan (ilk açılış) temasının **Açık** olmasını istedi; "kapsamlı" yöntem seçildi — yani Açık, gerçek CSS varsayılanı (`:root`) oldu, eski varsayılan Mavi ise artık bir `body.tema-mavi` sınıfı.
+- **`style.css`:**
+  - `:root` bloğunun içeriği eski Açık renkleriyle değiştirildi (artık `:root` = Açık tema).
+  - Eski `body.tema-acik` bloğu silindi; yerine eski `:root` (Mavi) renklerini içeren `body.tema-mavi` bloğu eklendi.
+  - "ALTERNATİF TEMALAR" yorumu güncellendi: ":root, varsayılan 'Açık' temadır."
+  - `.tema-btn-mavi` / `.tema-btn-acik` buton renkleri (gradyanlar) değişmedi — bunlar her temanın "kimlik rengini" gösteriyor, hangisinin `:root` olduğuyla ilgisi yok.
+- **`script.js`:**
+  - `temaSiniflari` listesinde `"tema-acik"` → `"tema-mavi"` olarak değiştirildi.
+  - `if (tema !== "mavi")` → `if (tema !== "acik")` yapıldı (artık ekstra class gerektirmeyen tema "acik").
+  - Varsayılan fallback `|| "mavi"` → `|| "acik"` yapıldı.
+  - Önceden `localStorage`'a `"mavi"` kaydetmiş kullanıcılar için de sorun yok: `temaUygula("mavi")` artık `body`'ye `tema-mavi` class'ı ekleyip eski Mavi görünümü doğru şekilde uyguluyor.
+
 **Sıradaki adım:** JS ile sepete ekleme, adet artırma/azaltma, ürün silme, toplam hesaplama, bildirim mesajları (escapeHTML ile güvenli) ve sepeti temizleme mantığını yazmak. Ayrıca sepet içeriği de localStorage'da kalıcı hale gelecek.

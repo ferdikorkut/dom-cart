@@ -5,31 +5,31 @@
    Tema değiştirmek istediğimizde sadece bu kısmı
    güncellemek yeterli olur. */
 :root {
-  --arka-plan: #0a0e1a;
-  --kart-arka: rgba(22, 32, 54, 0.85);
-  --kart-kenar: rgba(56, 189, 248, 0.30);
-  --kart-hover: #1e293b;
-  --yazi-acik: #e2e8f0;
-  --yazi-soluk: #94a3b8;
-  --fiyat-rengi: #5eead4;
-  --vurgu: #0ea5e9;
-  --vurgu-koyu: #38bdf8;
-  --buton-arka: #1e293b;
-  --buton-hover: #22d3ee;
-  --sepet-arka: rgba(6, 10, 20, 0.9);
-  --sepet-kenar: #0c4a6e;
+  --arka-plan: #f1f5f9;
+  --kart-arka: #ffffff;
+  --kart-kenar: #e2e8f0;
+  --kart-hover: #f8fafc;
+  --yazi-acik: #1e293b;
+  --yazi-soluk: #64748b;
+  --fiyat-rengi: #2563eb;
+  --vurgu: #2563eb;
+  --vurgu-koyu: #1d4ed8;
+  --buton-arka: #e2e8f0;
+  --buton-hover: #3b82f6;
+  --sepet-arka: #ffffff;
+  --sepet-kenar: #cbd5e1;
   --tehlike: #dc2626;
   --tehlike-hover: #ff3b3b;
-  --input-arka: #0c1322;
-  --input-kenar: #0369a1;
-  --bildirim-arka: #0f1c30;
-  --bildirim-kenar: #0ea5e9;
+  --input-arka: #f8fafc;
+  --input-kenar: #94a3b8;
+  --bildirim-arka: #e0f2fe;
+  --bildirim-kenar: #2563eb;
 }
 
 /* ============================================
    ALTERNATİF TEMALAR
    ============================================
-   Yukarıdaki :root, varsayılan "Mavi" temadır.
+   Yukarıdaki :root, varsayılan "Açık" temadır.
    Aşağıdaki sınıflar <body> etiketine eklendiğinde
    aynı değişkenleri farklı renklerle override eder.
    JS, tema butonlarına tıklanınca bu sınıfları
@@ -81,27 +81,27 @@ body.tema-turuncu {
   --bildirim-kenar: #f97316;
 }
 
-/* Tema: Açık / Minimal */
-body.tema-acik {
-  --arka-plan: #f1f5f9;
-  --kart-arka: #ffffff;
-  --kart-kenar: #e2e8f0;
-  --kart-hover: #f8fafc;
-  --yazi-acik: #1e293b;
-  --yazi-soluk: #64748b;
-  --fiyat-rengi: #2563eb;
-  --vurgu: #2563eb;
-  --vurgu-koyu: #1d4ed8;
-  --buton-arka: #e2e8f0;
-  --buton-hover: #3b82f6;
-  --sepet-arka: #ffffff;
-  --sepet-kenar: #cbd5e1;
+/* Tema: Mavi (Koyu Lacivert + Turkuaz) */
+body.tema-mavi {
+  --arka-plan: #0a0e1a;
+  --kart-arka: rgba(22, 32, 54, 0.85);
+  --kart-kenar: rgba(56, 189, 248, 0.30);
+  --kart-hover: #1e293b;
+  --yazi-acik: #e2e8f0;
+  --yazi-soluk: #94a3b8;
+  --fiyat-rengi: #5eead4;
+  --vurgu: #0ea5e9;
+  --vurgu-koyu: #38bdf8;
+  --buton-arka: #1e293b;
+  --buton-hover: #22d3ee;
+  --sepet-arka: rgba(6, 10, 20, 0.9);
+  --sepet-kenar: #0c4a6e;
   --tehlike: #dc2626;
   --tehlike-hover: #ff3b3b;
-  --input-arka: #f8fafc;
-  --input-kenar: #94a3b8;
-  --bildirim-arka: #e0f2fe;
-  --bildirim-kenar: #2563eb;
+  --input-arka: #0c1322;
+  --input-kenar: #0369a1;
+  --bildirim-arka: #0f1c30;
+  --bildirim-kenar: #0ea5e9;
 }
 
 
