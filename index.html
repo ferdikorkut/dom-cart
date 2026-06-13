@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <!-- Mobil cihazlarda sayfanın doğru ölçekte görünmesini sağlar -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DOM Cart</title>
+  <!-- Font Awesome: butonlardaki ikonlar (sepet, çöp kutusu vb.) için CDN'den yükleniyor -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Sayfanın görünümünü (renk, boyut, düzen) belirleyen CSS dosyası -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Tema seçici: sağ üst köşedeki 4 renkli buton.
+       Tıklanan butona göre JS, <body>'ye tema sınıfı ekleyip
+       sayfanın tüm renk paletini değiştirir. -->
+  <div class="tema-secici">
+    <button class="tema-btn tema-btn-mavi" data-tema="mavi" title="Mavi Tema" aria-label="Mavi Tema"></button>
+    <button class="tema-btn tema-btn-yesil" data-tema="yesil" title="Yeşil Tema" aria-label="Yeşil Tema"></button>
+    <button class="tema-btn tema-btn-turuncu" data-tema="turuncu" title="Turuncu Tema" aria-label="Turuncu Tema"></button>
+    <button class="tema-btn tema-btn-acik" data-tema="acik" title="Açık Tema" aria-label="Açık Tema"></button>
+  </div>
+
+  <!-- Tüm sayfa içeriğini ortalamak ve genişliğini sınırlamak için kapsayıcı -->
+  <div class="sayfa">
+
+    <!-- ====== ÜST KISIM (HEADER) ======
+         Sayfa başlığı, açıklama ve işlem bildirimleri burada yer alır -->
+    <header>
+      <h1><i class="fa-solid fa-cart-shopping"></i> DOM CART</h1>
+      <p>Ürünleri sepete ekle, adet yönetimi yap, toplam fiyatı anında gör.</p>
+
+      <!-- Bildirim kutusu: "1 adet Laptop sepete eklendi" gibi mesajlar için.
+           Normalde gizli; JS bir mesaj göstereceği zaman "goster" sınıfını ekleyecek -->
+      <div id="bildirim" class="bildirim">
+        <i class="fa-solid fa-circle-info"></i>
+        <span id="bildirim-metin"></span>
+      </div>
+    </header>
+
+    <!-- ====== ANA İÇERİK ======
+         İçinde iki bölüm var: sol tarafta ürünler, sağ tarafta sepetim -->
+    <main>
+
+      <!-- ====== ÜRÜNLER BÖLÜMÜ (SOL) ======
+           Her ürün kendi kutusunda (urun-karti): resim, isim, açıklama,
+           fiyat, adet seçici ve "Sepete Ekle" butonu içerir -->
+      <section class="urunler">
+
+        <!-- Ürün 1: Klavye -->
+        <div class="urun-karti">
+          <img src="img/klavye.avif" alt="Klavye">
+          <h3>Klavye</h3>
+          <p class="aciklama">Mekanik, RGB aydınlatmalı klavye</p>
+          <p class="fiyat">450 ₺</p>
+          <div class="urun-alt">
+            <!-- Adet seçici: kullanıcı kaç adet almak istediğini seçer -->
+            <input type="number" class="adet" value="1" min="1">
+            <!-- data-isim ve data-fiyat: bu ürünün bilgilerini JS'in
+                 okuyabilmesi için butona ekledik -->
+            <button class="sepete-ekle-btn" data-isim="Klavye" data-fiyat="450">
+              <i class="fa-solid fa-cart-plus"></i> Sepete Ekle
+            </button>
+          </div>
+        </div>
+
+        <!-- Ürün 2: Kulaklık -->
+        <div class="urun-karti">
+          <img src="img/kulaklik.avif" alt="Kulaklık">
+          <h3>Kulaklık</h3>
+          <p class="aciklama">Kablosuz, gürültü engelleyici kulaklık</p>
+          <p class="fiyat">650 ₺</p>
+          <div class="urun-alt">
+            <input type="number" class="adet" value="1" min="1">
+            <button class="sepete-ekle-btn" data-isim="Kulaklık" data-fiyat="650">
+              <i class="fa-solid fa-cart-plus"></i> Sepete Ekle
+            </button>
+          </div>
+        </div>
+
+        <!-- Ürün 3: Laptop -->
+        <div class="urun-karti">
+          <img src="img/laptop.avif" alt="Laptop">
+          <h3>Laptop</h3>
+          <p class="aciklama">Yüksek performanslı taşınabilir bilgisayar</p>
+          <p class="fiyat">25000 ₺</p>
+          <div class="urun-alt">
+            <input type="number" class="adet" value="1" min="1">
+            <button class="sepete-ekle-btn" data-isim="Laptop" data-fiyat="25000">
+              <i class="fa-solid fa-cart-plus"></i> Sepete Ekle
+            </button>
+          </div>
+        </div>
+
+        <!-- Ürün 4: Mouse -->
+        <div class="urun-karti">
+          <img src="img/mouse.avif" alt="Mouse">
+          <h3>Mouse</h3>
+          <p class="aciklama">Ergonomik kablosuz mouse</p>
+          <p class="fiyat">250 ₺</p>
+          <div class="urun-alt">
+            <input type="number" class="adet" value="1" min="1">
+            <button class="sepete-ekle-btn" data-isim="Mouse" data-fiyat="250">
+              <i class="fa-solid fa-cart-plus"></i> Sepete Ekle
+            </button>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ====== SEPETİM BÖLÜMÜ (SAĞ) ======
+           Sepete eklenen ürünlerin listesi ve toplamlar burada gösterilir -->
+      <aside class="sepetim">
+        <h2><i class="fa-solid fa-cart-shopping"></i> Sepetim</h2>
+
+        <!-- Toplam ürün adedi: JS tarafından güncellenecek -->
+        <p class="sepet-bilgi">Toplam Ürün: <strong id="toplam-adet">0</strong></p>
+
+        <!-- Sepet boşken gösterilen mesaj. Sepete ürün eklenince
+             JS bunu gizleyecek -->
+        <div id="sepet-bos-mesaji" class="sepet-bos-mesaji">
+          Sepetiniz şu anda boş.
+        </div>
+
+        <!-- Sepete eklenen ürünler buraya JS tarafından li olarak eklenecek -->
+        <ul id="sepet-listesi"></ul>
+
+        <!-- Toplam fiyat ve sepeti temizleme butonu -->
+        <div class="toplam-kutu">
+          <p class="toplam-satir">
+            <span>Toplam Fiyat:</span>
+            <span><span id="toplam-fiyat">0</span> ₺</span>
+          </p>
+          <button id="sepeti-temizle-btn">
+            <i class="fa-solid fa-trash"></i> Sepeti Temizle
+          </button>
+        </div>
+      </aside>
+
+    </main>
+
+  </div>
+
+  <!-- Sayfa içeriği yüklendikten sonra çalışacak JavaScript dosyası -->
+  <script src="script.js"></script>
+</body>
+</html>
