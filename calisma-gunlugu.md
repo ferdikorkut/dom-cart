@@ -104,3 +104,52 @@ Her oturumda neyin neden yapıldığını buradan tekrar gözden geçirebilirsin
   - Önceden `localStorage`'a `"mavi"` kaydetmiş kullanıcılar için de sorun yok: `temaUygula("mavi")` artık `body`'ye `tema-mavi` class'ı ekleyip eski Mavi görünümü doğru şekilde uyguluyor.
 
 **Sıradaki adım:** JS ile sepete ekleme, adet artırma/azaltma, ürün silme, toplam hesaplama, bildirim mesajları (escapeHTML ile güvenli) ve sepeti temizleme mantığını yazmak. Ayrıca sepet içeriği de localStorage'da kalıcı hale gelecek.
+
+## 2026-06-15
+
+### Sepet Mantığı (tamamlandı)
+- `script.js`'e tema kodunun altına yeni bir bölüm eklendi: "SEPET (CART) MANTIĞI".
+- **Veri yapısı:** `sepet` adında bir dizi — her öğe `{ isim, fiyat, adet }` şeklinde bir obje.
+- **`escapeHTML(metin)`:** Bir metni gizli bir `<div>`'in `textContent`'ine yazıp `innerHTML`'ini okuyarak HTML'e güvenli hale getirir (`<`, `>`, `&` gibi karakterler kod olarak çalışmaz, düz yazı olur).
+- **`bildirimGoster(mesaj)`:** Üstteki bildirim kutusuna mesaj yazar, `.goster` sınıfını ekler, 3 saniye sonra `setTimeout` ile otomatik kapatır (üst üste tıklamalarda `clearTimeout` ile zamanlayıcı sıfırlanır).
+- **`sepetiGuncelle()`:** `sepet` dizisine bakarak `#sepet-listesi`'ni baştan oluşturur (her ürün için `.sepet-urunu` `<li>`'si — ad, birim fiyat x adet, ara toplam, Sil butonu, +/- adet kontrolleri), `#toplam-adet` ve `#toplam-fiyat`'ı günceller, sepet boşsa `#sepet-bos-mesaji`'nı gösterir/gizler. Toplam adet değişince `.pop` sınıfıyla "zıplama" animasyonu tetiklenir (`offsetWidth` ile reflow zorlanarak animasyon her seferinde yeniden başlatılır).
+- **"Sepete Ekle" butonları:** Tıklanınca `data-isim`/`data-fiyat` ve yanındaki adet `input`'u okur, ürün sepette varsa adedini artırır, yoksa yeni ekler, `sepetiGuncelle()` çağırır, bildirim gösterir ("X adet Y sepete eklendi."), adet kutusunu 1'e sıfırlar.
+- **Sepet listesi (+/-/Sil):** Bu butonlar sonradan oluştuğu için `#sepet-listesi` üzerinde tek bir "event delegation" dinleyicisi var — `e.target.closest("button")` ile hangi butona tıklandığı bulunuyor. `+` adedi artırır, `-` adedi azaltır (0 olunca ürünü sepetten çıkarır), Sil ürünü tamamen kaldırır.
+- **"Sepeti Temizle":** `sepet` dizisini boşaltır, günceller, bildirim gösterir.
+- Tarayıcıda açılıp test edildi.
+
+### Küçük Düzenlemeler — Sepet Satırı ve Bildirim (tamamlandı)
+- Sepet ürünü satırında ara toplam fiyatı (`.sepet-urunu-arasum`), adet +/- kontrollerinin (`.sepet-adet-kontrol`) bulunduğu satıra, en sağa alındı (`index.html`'de yeni `.sepet-urunu-alt` flex sarmalayıcı, `style.css`'de ilgili stil).
+- Bildirim kutusunun otomatik kapanma süresi 3 saniyeden 20 saniyeye çıkarıldı (`script.js`, `bildirimGoster` içindeki `setTimeout` değeri 3000 → 20000).
+- Sepet ürünü fiyat satırındaki "x {adet}" bilgisi kaldırıldı, artık sadece birim fiyat gösteriliyor (`script.js`, `sepetiGuncelle` şablonu).
+
+### "Toplam Ürün" Satırının Taşınması (tamamlandı)
+- "Toplam Ürün: X" bilgisi, "Sepetim" başlığının altından `.toplam-kutu` içine, "Toplam Fiyat" satırının hemen üstüne taşındı.
+- Eski pill-rozet stili (`.sepet-bilgi`) kaldırıldı; yeni satır `.toplam-satir` ile aynı düzeni (etiket solda, değer sağda) kullanıyor ama `.toplam-satir-adet` ile daha küçük/sade gösteriliyor.
+- Sayaç "zıplama" animasyonu artık `#toplam-adet.pop` üzerinden çalışıyor (`@keyframes sayac-pop` aynı kaldı).
+
+### Bildirim Kutusunun Yeniden Tasarımı (tamamlandı)
+- Bildirim kutusu `<header>` içinden çıkarılıp sayfanın en üstüne (menü konumuna) taşındı.
+- `position: fixed; top: 0; left: 0; width: 100%;` ile sayfa akışından çıkarıldı — göründüğünde artık içeriği aşağı itmiyor, üstüne biniyor.
+- `z-index` değeri tema seçici butonlarından (100) yüksek (200) yapıldı, böylece bildirim göründüğünde tema butonlarının önünde duruyor.
+- Arka plan rengi, temanın vurgu rengiyle (`--bildirim-kenar`) dolgun hale getirildi (beyaz yazı), kullanılmayan `--bildirim-arka` değişkenleri 4 temadan da kaldırıldı.
+- Bildirim metninin başındaki ikon (`fa-circle-info`) kaldırıldı, artık sadece metin gösteriliyor.
+- `.sayfa` kapsayıcısına `margin-top: 40px` eklendi — tema butonları (fixed) yerinde kalırken, sayfanın diğer içeriği (başlık, ürünler, sepet) biraz aşağı kaydı, böylece üstte bildirim için boşluk oluştu.
+
+### "Toplam Ürün" Zıplama Animasyonunun Kaldırılması (tamamlandı)
+- `script.js`'de `sepetiGuncelle()` içindeki `.pop` sınıfı ekleme/kaldırma ve `offsetWidth` zorlama satırları kaldırıldı; `#toplam-adet` artık animasyonsuz, anında güncelleniyor.
+- `style.css`'den artık kullanılmayan `@keyframes sayac-pop` ve `#toplam-adet.pop` kuralı silindi.
+
+### localStorage ile Sepet Kalıcılığı (tamamlandı)
+- `let sepet = [];` → `let sepet = JSON.parse(localStorage.getItem("sepet")) || [];` yapıldı: sayfa açılışında kayıtlı sepet varsa onunla başlıyor, yoksa boş dizi.
+- Yeni `sepetiKaydet()` fonksiyonu eklendi: `localStorage.setItem("sepet", JSON.stringify(sepet))`. Bu fonksiyon `sepetiGuncelle()`'nin sonunda çağrılıyor, yani her ekleme/silme/+/-/temizleme sonrası sepet otomatik kaydediliyor.
+- Dosyanın sonuna `sepetiGuncelle();` çağrısı eklendi — sayfa ilk açıldığında kayıtlı sepet ekrana basılıyor.
+- Tema seçimiyle aynı `localStorage` + `JSON` mantığı kullanıldı. Tarayıcıda test edildi: sepete ürün eklenip sayfa yenilendiğinde sepet aynen kalıyor, "Sepeti Temizle" sonrası da boş kalıyor.
+
+### Küçük Düzenleme — Adet Kontrolü Font Boyutu (tamamlandı)
+- `.sepet-adet` (adet sayısı) için `font-size: 1.1rem;` eklendi.
+- `.adet-btn` (+/- butonları) için `font-size: 1rem;` olarak netleştirildi (tekrarlanan `font-size` satırı temizlendi).
+
+---
+
+**Proje durumu:** Planlanan tüm adımlar (HTML, CSS, tema değiştirici, sepet mantığı, localStorage kalıcılığı) tamamlandı. Kullanıcı bu oturumu burada sonlandırdı.

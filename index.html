@@ -12,6 +12,14 @@
 </head>
 <body>
 
+  <!-- Bildirim kutusu: "1 adet Laptop sepete eklendi" gibi mesajlar için.
+       Sayfanın en üstünde, menü konumunda; "position: fixed" sayesinde
+       göründüğünde altındaki içeriği aşağı itmez. Normalde gizli;
+       JS bir mesaj göstereceği zaman "goster" sınıfını ekleyecek -->
+  <div id="bildirim" class="bildirim">
+    <span id="bildirim-metin"></span>
+  </div>
+
   <!-- Tema seçici: sağ üst köşedeki 4 renkli buton.
        Tıklanan butona göre JS, <body>'ye tema sınıfı ekleyip
        sayfanın tüm renk paletini değiştirir. -->
@@ -30,13 +38,6 @@
     <header>
       <h1><i class="fa-solid fa-cart-shopping"></i> DOM CART</h1>
       <p>Ürünleri sepete ekle, adet yönetimi yap, toplam fiyatı anında gör.</p>
-
-      <!-- Bildirim kutusu: "1 adet Laptop sepete eklendi" gibi mesajlar için.
-           Normalde gizli; JS bir mesaj göstereceği zaman "goster" sınıfını ekleyecek -->
-      <div id="bildirim" class="bildirim">
-        <i class="fa-solid fa-circle-info"></i>
-        <span id="bildirim-metin"></span>
-      </div>
     </header>
 
     <!-- ====== ANA İÇERİK ======
@@ -114,9 +115,6 @@
       <aside class="sepetim">
         <h2><i class="fa-solid fa-cart-shopping"></i> Sepetim</h2>
 
-        <!-- Toplam ürün adedi: JS tarafından güncellenecek -->
-        <p class="sepet-bilgi">Toplam Ürün: <strong id="toplam-adet">0</strong></p>
-
         <!-- Sepet boşken gösterilen mesaj. Sepete ürün eklenince
              JS bunu gizleyecek -->
         <div id="sepet-bos-mesaji" class="sepet-bos-mesaji">
@@ -128,6 +126,11 @@
 
         <!-- Toplam fiyat ve sepeti temizleme butonu -->
         <div class="toplam-kutu">
+          <!-- Toplam ürün adedi: Toplam Fiyat ile aynı sade satır biçiminde -->
+          <p class="toplam-satir toplam-satir-adet">
+            <span>Toplam Ürün Adedi:</span>
+            <span id="toplam-adet">0</span>
+          </p>
           <p class="toplam-satir">
             <span>Toplam Fiyat:</span>
             <span><span id="toplam-fiyat">0</span> ₺</span>
