@@ -97,7 +97,7 @@ function bildirimGoster(mesaj) {
   clearTimeout(bildirimZamanlayici);
   bildirimZamanlayici = setTimeout(() => {
     bildirimKutu.classList.remove("goster");
-  }, 10000);
+  }, 7000);
 }
 
 // "sepet" dizisindeki verilere göre sayfanın sepet bölümünü
